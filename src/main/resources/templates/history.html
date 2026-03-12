@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction History - CryptoWallet</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0f1f, #1b2845);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            color: #ffd700;
+            font-size: 26px;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #ffd700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .history-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .transactions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .transactions-table th,
+        .transactions-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .transactions-table th {
+            color: #ffd700;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .transaction-type {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .type-DEPOSIT {
+            background-color: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .type-WITHDRAWAL {
+            background-color: rgba(255, 68, 68, 0.2);
+            color: #ff4444;
+            border: 1px solid rgba(255, 68, 68, 0.3);
+        }
+
+        .type-TRANSFER {
+            background-color: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .amount-positive {
+            color: #00ff88;
+            font-weight: 600;
+        }
+
+        .amount-negative {
+            color: #ff4444;
+            font-weight: 600;
+        }
+
+        .no-transactions {
+            text-align: center;
+            padding: 60px 40px;
+            color: #aaa;
+        }
+
+        .no-transactions h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #ffd700;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .timestamp {
+            font-size: 12px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>💰 CryptoWallet</h1>
+    <nav>
+        <a th:href="@{/home}">Home</a>
+        <a th:href="@{/deposit}">Deposit</a>
+        <a th:href="@{/transactions}">Send Money</a>
+        <a th:href="@{/history}">Transaction History</a>
+        <a th:href="@{/logout}">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="history-card">
+        <h2>📊 Transaction History</h2>
+
+        <div class="table-container">
+            <table class="transactions-table" th:if="${not #lists.isEmpty(transactions)}">
+                <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Date & Time</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Wallet ID</th>
+                    <th>Sender/Receiver</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="transaction : ${transactions}">
+                    <td th:text="${transaction.id}">ID</td>
+                    <td>
+                        <div th:text="${#temporals.format(transaction.timestamp, 'dd-MM-yyyy')}">Date</div>
+                        <div class="timestamp" th:text="${#temporals.format(transaction.timestamp, 'HH:mm:ss')}">Time</div>
+                    </td>
+                    <td>
+                            <span th:class="'transaction-type type-' + ${transaction.type}"
+                                  th:text="${transaction.type}">Type</span>
+                    </td>
+                    <td th:class="${transaction.type == 'DEPOSIT' ? 'amount-positive' : 'amount-negative'}"
+                        th:text="'₹' + ${transaction.amount}">Amount</td>
+                    <td th:text="${transaction.description}">Description</td>
+                    <td th:text="${transaction.wallet != null ? transaction.wallet.id : 'N/A'}">Wallet ID</td>
+                    <td>
+                            <span th:if="${transaction.type == 'TRANSFER'}">
+                                From: <span th:text="${transaction.senderWalletId}"></span><br>
+                                To: <span th:text="${transaction.receiverWalletId}"></span>
+                            </span>
+                        <span th:if="${transaction.type != 'TRANSFER'}">-</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${#lists.isEmpty(transactions)}" class="no-transactions">
+            <h3>No Transactions Found</h3>
+            <p>Your transaction history will appear here once you start using your wallet.</p>
+            <p>Make a deposit or send money to see transactions here.</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a th:href="@{/home}" class="back-link">← Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

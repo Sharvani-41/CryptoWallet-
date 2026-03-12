@@ -1,0 +1,107 @@
+/* Reset default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    background-color: #121212;
+    color: #f5f5f5;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Header and navigation */
+header {
+    background-color: #1e1e1e;
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+
+header h1 {
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    color: #fdd835;
+}
+
+nav a {
+    color: #f5f5f5;
+    margin: 0 1rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #fdd835;
+}
+
+/* Main content */
+main {
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Wallet info section */
+.wallet-info {
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.wallet-info p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+/* Action buttons */
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.actions button {
+    background-color: #fdd835;
+    color: #000;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.actions button:hover {
+    background-color: #ffe066;
+}
+
+/* Footer */
+footer {
+    background-color: #1e1e1e;
+    color: #aaa;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #333;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav a {
+        display: block;
+        margin: 0.5rem 0;
+    }
+}

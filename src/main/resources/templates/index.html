@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CryptoWallet - Welcome</title>
+    <style>
+        body {
+            background-color: #0d1117;
+            color: white;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            max-width: 500px;
+            padding: 40px;
+        }
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+        h1 {
+            color: #ffd700;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            color: #ccc;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #ffd700;
+            color: #000;
+        }
+        .btn-primary:hover {
+            background-color: #ffed4a;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: #ffd700;
+            border: 2px solid #ffd700;
+        }
+        .btn-secondary:hover {
+            background-color: #ffd700;
+            color: #000;
+            transform: translateY(-2px);
+        }
+        .features {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            text-align: left;
+        }
+        .feature {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffd700;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="logo">💰</div>
+    <h1>CryptoWallet</h1>
+    <p class="subtitle">Secure, Fast, and Easy Cryptocurrency Management</p>
+
+    <div class="button-container">
+        <a th:href="@{/login}" class="btn btn-primary">Login to Your Account</a>
+        <a th:href="@{/register}" class="btn btn-secondary">Create New Account</a>
+    </div>
+
+    <div class="features">
+        <div class="feature">
+            <strong>🔒 Secure</strong>
+            <p>Bank-level security for your digital assets</p>
+        </div>
+        <div class="feature">
+            <strong>⚡ Fast</strong>
+            <p>Instant transactions with real-time updates</p>
+        </div>
+        <div class="feature">
+            <strong>📊 Track</strong>
+            <p>Monitor your transaction history easily</p>
+        </div>
+        <div class="feature">
+            <strong>🎯 Simple</strong>
+            <p>User-friendly interface for everyone</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

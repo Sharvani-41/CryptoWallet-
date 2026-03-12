@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Deposit Funds - CryptoWallet</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0f1f, #1b2845);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            color: #ffd700;
+            font-size: 26px;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #ffd700;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ddd;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #444;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #ffd700;
+        }
+
+        .btn {
+            background-color: #ffd700;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .success {
+            background-color: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            border: 1px solid #00ff88;
+        }
+
+        .error {
+            background-color: rgba(255, 68, 68, 0.1);
+            color: #ff4444;
+            border: 1px solid #ff4444;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>💰 CryptoWallet</h1>
+    <nav>
+        <a th:href="@{/home}">Home</a>
+        <a th:href="@{/transactions}">Send Money</a>
+        <a th:href="@{/history}">My Transactions</a>
+        <a th:href="@{/logout}">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="form-card">
+        <h2>💰 Deposit Funds</h2>
+
+        <form th:action="@{/deposit}" method="post">
+            <div class="form-group">
+                <label for="walletId">Wallet ID:</label>
+                <input type="number" id="walletId" name="walletId" placeholder="Enter your wallet ID" required>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount (₹):</label>
+                <input type="number" id="amount" name="amount" step="0.01" min="0.01" placeholder="Enter amount to deposit" required>
+            </div>
+
+            <button type="submit" class="btn">Deposit Funds</button>
+        </form>
+
+        <!-- FIXED: Simplified Thymeleaf expression -->
+        <div th:if="${message}" class="message" th:text="${message}"
+             th:class="${#strings.contains(message, '✅') or #strings.contains(message, 'Success')} ? 'success' : 'error'"></div>
+
+        <a th:href="@{/home}" class="back-link">← Back to Dashboard</a>
+    </div>
+</div>
+</body>
+</html>

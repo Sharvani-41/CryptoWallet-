@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Create User (Admin)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        form {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #555;
+        }
+        input, button {
+            margin: 6px 0;
+            padding: 8px;
+            width: 220px;
+            border-radius: 6px;
+            border: none;
+        }
+        button {
+            background-color: gold;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h2>Create New User</h2>
+
+<div th:if="${error}" th:text="${error}" style="color:red"></div>
+<div th:if="${message}" th:text="${message}" style="color:gold"></div>
+
+<form method="post" th:action="@{/admin/create-user}">
+    <input name="username" placeholder="Username" required/><br/>
+    <input name="email" placeholder="Email" required/><br/>
+    <input name="password" placeholder="Password" type="password" required/><br/>
+    <input name="initialBalance" placeholder="Initial Balance (optional)"/><br/>
+    <button type="submit">Create User</button>
+</form>
+</body>
+</html>
